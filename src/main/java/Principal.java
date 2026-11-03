@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Principal {
 
     public static void main(String[] args) {
-        //Variáveis   
+        //Variáveis
         Scanner leitor = new Scanner(System.in);
         String nomes[] = new String[100];
         int idades[] = new int[100];
@@ -16,6 +16,8 @@ public class Principal {
             System.out.println("1 - Cadastrar aluno");
             System.out.println("2 - Listar alunos");
             System.out.println("3 - Consultar alunos");
+            System.out.println("4 - Apagar alunos");
+            System.out.println("5 - Alterar alunos");
             System.out.println("9 - Sair");
             System.out.println("Digite um opcao:");
             opcao1 = Integer.parseInt(leitor.nextLine());
@@ -54,11 +56,11 @@ public class Principal {
                         switch (opcao2) {
                             case 1: {
                                 System.out.println("Consultar por nome");
-                                System.out.println("Digite o nome a ser pesquisado:");
+                                System.out.println("Digite o nome do aluno a ser pesquisado:");
                                 String nomePesquisa = leitor.nextLine();
                                 boolean flag = false;
                                 for (int i = 0; i < N; i++) {
-                                    if ((nomes[i].equalsIgnoreCase(nomePesquisa))==true) {
+                                    if ((nomes[i].equalsIgnoreCase(nomePesquisa)) == true) {
                                         System.out.println("Achei o aluno com o nome:" + nomes[i] + " e idade " + idades[i]);
                                         flag = true;
                                     }
@@ -70,11 +72,11 @@ public class Principal {
                             break;
                             case 2: {
                                 System.out.println("Consultar por idade");
-                                System.out.println("Digite a idade a ser pesquisado:");
+                                System.out.println("Digite a idade do aluno a ser pesquisado:");
                                 int idadePesquisa = Integer.parseInt(leitor.nextLine());
                                 boolean flag = false;
                                 for (int i = 0; i < N; i++) {
-                                    if ((idades[i] == idadePesquisa)==true) {
+                                    if ((idades[i] == idadePesquisa) == true) {
                                         System.out.println("Achei o aluno com o nome:" + nomes[i] + " e idade " + idades[i]);
                                         flag = true;
                                     }
@@ -93,6 +95,53 @@ public class Principal {
                     } while (opcao2 != 9);
                     //Fim do submenu 3
                     break;
+                case 4: {
+                    System.out.println("Excluindo Aluno");
+                    System.out.println("Digite o nome do aluno a ser pesquisado para excluir:");
+                    String nomePesquisa = leitor.nextLine();
+                    int posicaoExcluir = -1;
+                    for (int i = 0; i < N; i++) {
+                        if ((nomes[i].equalsIgnoreCase(nomePesquisa)) == true) {
+                            posicaoExcluir = i;
+                        }
+                    }
+                    if (posicaoExcluir != -1) {
+                        //Preenche a posição a ser excluida com o o próximo do vetor
+                        for (int i = posicaoExcluir; i < N - 1; i++) {
+                            nomes[i] = nomes[i + 1];
+                            idades[i] = idades[i + 1];
+                        }
+                        //]decrementa a quantidade de alunos no vetor
+                        N = N - 1;
+                        System.out.println("Exclusao de aluno realizada com sucesso.");
+                    } else {
+                        System.out.println("Nenhum aluno encontrado com o nome " + nomePesquisa + " para excluir");
+                    }
+                }
+                break;
+                case 5: {
+                    System.out.println("Alterando aluno");
+                    System.out.println("Digite o nome do aluno a ser pesquisado para alterar:");
+                    String nomePesquisa = leitor.nextLine();
+                    int posicaoAlterar = -1;
+                    for (int i = 0; i < N; i++) {
+                        if ((nomes[i].equalsIgnoreCase(nomePesquisa)) == true) {
+                            posicaoAlterar = i;
+                        }
+                    }
+                    if (posicaoAlterar != -1) {
+                        System.out.println("Digite o nome do aluno para alterar:");
+                        String nome = leitor.nextLine();
+                        System.out.println("Digite a idade do aluno para alterar:");
+                        int idade = Integer.parseInt(leitor.nextLine());
+                        nomes[posicaoAlterar] = nome;
+                        idades[posicaoAlterar] = idade;
+                        System.out.println("Alteracao de aluno realizada com sucesso.");
+                    } else {
+                        System.out.println("Nenhum aluno encontrado com o nome " + nomePesquisa + " para alterar");
+                    }
+                }
+                break;
                 case 9:
                     System.out.println("Saindo do programa");
                     break;
